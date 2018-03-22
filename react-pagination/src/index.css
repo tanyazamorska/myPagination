@@ -23,6 +23,7 @@
     float: left;
     padding: 8px 16px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .pagination a.active {
@@ -30,4 +31,6 @@
     color: white;
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}

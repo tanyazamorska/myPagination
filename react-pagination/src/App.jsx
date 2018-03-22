@@ -7,8 +7,7 @@ class App extends React.Component {
     this.state = {
       data: [],
       currentPage: 1,
-      limitItemsOfPage: null,
-      totalItems: null
+      limit: 3
     }
   }
 
@@ -17,17 +16,13 @@ class App extends React.Component {
   onPageClick = page => this.setState({currentPage: page});
 
   fetchDataServer = () =>
-    fetch('data/data.json', {credentials: 'same-origin'})
+    fetch('data/data.json')
       .then((res) => {return res.json()})
-      .then(res => this.setState({
-        data: res.data,
-        limitItemsOfPage: res.pagination.limit,
-        totalItems: res.pagination.total
-      }))
-      .catch(err => console.log(err));
+      .then(data => this.setState({data: data.data}))
+      .catch(err => console.error(err));
 
   renderPagination = () => {
-    const pages =_.range(1, this.state.totalItems / this.state.limitItemsOfPage + 1);
+    const pages = _.range(1, this.state.data.length / this.state.limit + 1);
 
     return pages.map((page) => (
       <div className="pagination" key={page}>
@@ -40,20 +35,11 @@ class App extends React.Component {
   };
 
   renderContent = (data) => {
-    let startIndex;
-    let endIndex;
-    if (this.state.currentPage === 1) {
-      startIndex = 0;
-      endIndex = this.state.limitItemsOfPage;
-    } else {
-      startIndex = this.state.currentPage  * this.state.limitItemsOfPage - this.state.limitItemsOfPage;
-      endIndex = this.state.currentPage * this.state.limitItemsOfPage;
-    }
-
-    const pageOfItems = data.slice(startIndex, endIndex);
-
-    return pageOfItems.map((item) => (
-      <p key={item.id}>{`${item.id}.  ${item.firstName} ${item.lastName}`}</p>)
+    const startIndex = this.state.currentPage * this.state.limit - this.state.limit;
+    const endIndex = this.state.currentPage * this.state.limit;
+    const itemsOnPage = data.slice(startIndex, endIndex);
+    return itemsOnPage.map((item) =>
+      <p key={item.id}>{`${item.id}.  ${item.firstName} ${item.lastName}`}</p>
     )
   };
 

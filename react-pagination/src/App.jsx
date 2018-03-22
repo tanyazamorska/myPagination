@@ -47,7 +47,7 @@ class App extends React.Component {
     return (
       <div className="grid-container">
         <div className="item1">
-          <h1>Content</h1>
+          <h1>Pagination</h1>
           {this.renderContent(this.state.data)}
         </div>
         <div className="item2">

@@ -1,10 +1,17 @@
 .grid-container {
   display: grid;
   justify-content: center;
+    grid-template-columns: auto auto auto auto auto auto;
+    grid-template-rows: 300px auto;
+}
+
+.content {
+    grid-row: 1;
 }
 
 .pagination {
     display: inline-block;
+    grid-row: 2;
 }
 
 .pagination a {
@@ -12,6 +19,7 @@
     float: left;
     padding: 8px 16px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .pagination a.active {

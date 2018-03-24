@@ -1,9 +1,4 @@
 {
-  "pagination": {
-    "limit": 5,
-    "offset": 5,
-    "total": 15
-  },
   "data": [
     {
       "id": 1,

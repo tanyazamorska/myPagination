@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/react-pagination.iml" filepath="$PROJECT_DIR$/.idea/react-pagination.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/js-pagination.iml" filepath="$PROJECT_DIR$/.idea/js-pagination.iml" />
     </modules>
   </component>
 </project>

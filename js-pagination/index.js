@@ -1,14 +1,38 @@
 document.getElementById('header').innerHTML = 'Pagination';
 
+var itemsOnPage = 3;
+
 $.ajax({
-  url: 'data.json',
+  url: './public/data.json',
   success: function(result){
-    console.log(result);
+    createList(result);
+    createPagination(result);
+
   }});
 
-var a = '';
-for (var i = 0; i <= 10; i++) {
-  a = a + '<a href="#">' + i + '</a> <br/>';
+function createList(data) {
+  var p = '';
+  for (var i = 0; i < data.users.length / itemsOnPage; i++) {
+    p = p + '<p>' + data.users[i].id + '. ' + data.users[i].firstName + ' ' + data.users[i].lastName + '</p>';
+  }
+  document.getElementById('list').innerHTML = p;
 }
 
-document.getElementById('list').innerHTML = a;
+var currentPage = 1;
+function createPagination(data) {
+  var a = '';
+  for (var i = 1; i <= data.users.length / itemsOnPage; i++) {
+    if (currentPage === i) {
+      a = a + '<a href="#" class="active" onclick="onPageClick(this)">' + i + '</a>';
+    } else {
+      a = a + '<a href="#" class="" onclick="onPageClick(this)">' + i + '</a>';
+    }
+  }
+  document.getElementById('pagination').innerHTML = a;
+}
+
+function onPageClick(obj) {
+  currentPage = obj.innerText;
+  obj.className = 'active';
+}
+

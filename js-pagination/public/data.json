@@ -1,5 +1,5 @@
 {
-  "data": [
+  "users": [
     {
       "id": 1,
       "firstName": "Wolter",
@@ -48,12 +48,6 @@
       "id": 9,
       "firstName": "Qer",
       "lastName": "Asat",
-      "email": "sssss@ss.gmail.com"
-    },
-    {
-      "id": 10,
-      "firstName": "Marta",
-      "lastName": "Right",
       "email": "sssss@ss.gmail.com"
     }
   ]

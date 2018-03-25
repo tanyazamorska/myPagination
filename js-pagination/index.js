@@ -1,38 +1,53 @@
 document.getElementById('header').innerHTML = 'Pagination';
 
-var itemsOnPage = 3;
+var limit = 3;
+var data = [];
 
-$.ajax({
-  url: './public/data.json',
-  success: function(result){
-    createList(result);
-    createPagination(result);
+async function fetchData() {
+  var res = await fetch('data.json');
+  data = await res.json();
+  renderList(1);
+  renderPagination(1);
+}
+fetchData();
 
-  }});
+// fetch('data.json')
+//   .then(function (res) { return res.json()})
+//   .then(function (data) {
+//     createList(data, 1);
+//     createPagination(data, 1);
+//   });
 
-function createList(data) {
-  var p = '';
-  for (var i = 0; i < data.users.length / itemsOnPage; i++) {
-    p = p + '<p>' + data.users[i].id + '. ' + data.users[i].firstName + ' ' + data.users[i].lastName + '</p>';
+function renderList(currentPage) {
+  var startIndex = currentPage * limit - limit;
+  var endIndex = currentPage * limit;
+  var itemsOnPage = data.users.slice(startIndex, endIndex);
+
+  var html = '';
+  for (var i = 0; i < itemsOnPage.length; i++) {
+    html = html + '<p>' + itemsOnPage[i].id + '. ' + itemsOnPage[i].firstName + ' '
+      + itemsOnPage[i].lastName + '</p>';
   }
-  document.getElementById('list').innerHTML = p;
+  document.getElementById('list').innerHTML = html;
 }
 
-var currentPage = 1;
-function createPagination(data) {
-  var a = '';
-  for (var i = 1; i <= data.users.length / itemsOnPage; i++) {
+function renderPagination(currentPage) {
+  var html = '';
+  var classActive;
+
+  for (var i = 1; i <= Math.ceil(data.users.length / limit); i++) {
     if (currentPage === i) {
-      a = a + '<a href="#" class="active" onclick="onPageClick(this)">' + i + '</a>';
+      classActive = 'class=active';
     } else {
-      a = a + '<a href="#" class="" onclick="onPageClick(this)">' + i + '</a>';
+      classActive = '';
     }
+    html = html + '<a href="#" ' + classActive + ' onclick="handleClick(this)">' + i + '</a>';
   }
-  document.getElementById('pagination').innerHTML = a;
+  document.getElementById('pagination').innerHTML = html;
 }
 
-function onPageClick(obj) {
-  currentPage = obj.innerText;
-  obj.className = 'active';
+function handleClick(obj) {
+  renderList(parseFloat(obj.innerText));
+  renderPagination(parseFloat(obj.innerText));
 }
 

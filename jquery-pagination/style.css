@@ -1,0 +1,29 @@
+.grid-container {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 250px auto;
+}
+
+.content {
+    grid-row: 1;
+}
+
+#pagination {
+    display: inline-block;
+    grid-row: 2;
+}
+
+#pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#pagination a:hover:not(.active) {background-color: #ddd;}
